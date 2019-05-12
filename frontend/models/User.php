@@ -17,6 +17,10 @@ use Yii;
  * @property int $created_at
  * @property int $updated_at
  * @property string $verification_token
+ *
+ * @property Admin[] $admins
+ * @property Customer[] $customers
+ * @property Vendor[] $vendors
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -61,5 +65,29 @@ class User extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'verification_token' => 'Verification Token',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdmins()
+    {
+        return $this->hasMany(Admin::className(), ['ID_AKUN' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCustomers()
+    {
+        return $this->hasMany(Customer::className(), ['ID_AKUN' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVendors()
+    {
+        return $this->hasMany(Vendor::className(), ['ID_AKUN' => 'id']);
     }
 }

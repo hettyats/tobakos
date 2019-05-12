@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "customer".
  *
- * @property string $ID_CUSTOMER
- * @property string $ID_AKUN
+ * @property int $ID_CUSTOMER
+ * @property int $ID_AKUN
  * @property string $NAMA_CUSTOMER
  * @property string $ALAMAT_CUSTOMER
  * @property int $NO_TELEPON_CUSTOMER
  * @property int $JENIS_KELAMIN
  * @property string $EMAIL_CUSTOMER
  *
- * @property Akun[] $akuns
- * @property RumahIndekos[] $rumahIndekos
+ * @property User $aKUN
+ * @property JenisKelamin $jENISKELAMIN
  * @property Ulasan[] $ulasans
  */
 class Customer extends \yii\db\ActiveRecord
@@ -35,12 +35,12 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_CUSTOMER'], 'required'],
-            [['NO_TELEPON_CUSTOMER', 'JENIS_KELAMIN'], 'integer'],
-            [['ID_CUSTOMER', 'ID_AKUN'], 'string', 'max' => 16],
+            [['ID_AKUN', 'JENIS_KELAMIN'], 'required'],
+            [['ID_AKUN', 'NO_TELEPON_CUSTOMER', 'JENIS_KELAMIN'], 'integer'],
             [['NAMA_CUSTOMER', 'EMAIL_CUSTOMER'], 'string', 'max' => 32],
             [['ALAMAT_CUSTOMER'], 'string', 'max' => 64],
-            [['ID_CUSTOMER'], 'unique'],
+            [['ID_AKUN'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ID_AKUN' => 'id']],
+            [['JENIS_KELAMIN'], 'exist', 'skipOnError' => true, 'targetClass' => JenisKelamin::className(), 'targetAttribute' => ['JENIS_KELAMIN' => 'id']],
         ];
     }
 
@@ -63,17 +63,17 @@ class Customer extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAkuns()
+    public function getAKUN()
     {
-        return $this->hasMany(Akun::className(), ['ID_CUSTOMER' => 'ID_CUSTOMER']);
+        return $this->hasOne(User::className(), ['id' => 'ID_AKUN']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRumahIndekos()
+    public function getJENISKELAMIN()
     {
-        return $this->hasMany(RumahIndekos::className(), ['ID_CUSTOMER' => 'ID_CUSTOMER']);
+        return $this->hasOne(JenisKelamin::className(), ['id' => 'JENIS_KELAMIN']);
     }
 
     /**

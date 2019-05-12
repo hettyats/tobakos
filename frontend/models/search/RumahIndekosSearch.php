@@ -17,8 +17,8 @@ class RumahIndekosSearch extends RumahIndekos
     public function rules()
     {
         return [
-            [['ID_RUMAHINDEKOS', 'ID_VENDOR', 'ID_CUSTOMER', 'NAMA_RUMAHINDEKOS', 'ALAMAT_RUMAHINDEKOS'], 'safe'],
-            [['BIAYA'], 'integer'],
+            [['ID_RUMAHINDEKOS', 'ID_VENDOR', 'BIAYA'], 'integer'],
+            [['NAMA_RUMAHINDEKOS', 'ALAMAT_RUMAHINDEKOS'], 'safe'],
         ];
     }
 
@@ -58,13 +58,12 @@ class RumahIndekosSearch extends RumahIndekos
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'ID_RUMAHINDEKOS' => $this->ID_RUMAHINDEKOS,
+            'ID_VENDOR' => $this->ID_VENDOR,
             'BIAYA' => $this->BIAYA,
         ]);
 
-        $query->andFilterWhere(['like', 'ID_RUMAHINDEKOS', $this->ID_RUMAHINDEKOS])
-            ->andFilterWhere(['like', 'ID_VENDOR', $this->ID_VENDOR])
-            ->andFilterWhere(['like', 'ID_CUSTOMER', $this->ID_CUSTOMER])
-            ->andFilterWhere(['like', 'NAMA_RUMAHINDEKOS', $this->NAMA_RUMAHINDEKOS])
+        $query->andFilterWhere(['like', 'NAMA_RUMAHINDEKOS', $this->NAMA_RUMAHINDEKOS])
             ->andFilterWhere(['like', 'ALAMAT_RUMAHINDEKOS', $this->ALAMAT_RUMAHINDEKOS]);
 
         return $dataProvider;

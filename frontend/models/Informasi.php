@@ -7,15 +7,13 @@ use Yii;
 /**
  * This is the model class for table "informasi".
  *
- * @property string $ID_INFORMASI
- * @property string $ID_RUMAHINDEKOS
- * @property string $ID_VENDOR
+ * @property int $ID_INFORMASI
+ * @property int $ID_RUMAHINDEKOS
  * @property string $JENIS_FASILITAS
  * @property int $STOK
  * @property string $KETERANGAN
  *
  * @property RumahIndekos $rUMAHINDEKOS
- * @property Vendor $vENDOR
  */
 class Informasi extends \yii\db\ActiveRecord
 {
@@ -33,14 +31,11 @@ class Informasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_INFORMASI'], 'required'],
-            [['STOK'], 'integer'],
-            [['ID_INFORMASI', 'ID_RUMAHINDEKOS', 'ID_VENDOR'], 'string', 'max' => 16],
+            [['ID_RUMAHINDEKOS'], 'required'],
+            [['ID_RUMAHINDEKOS', 'STOK'], 'integer'],
             [['JENIS_FASILITAS'], 'string', 'max' => 32],
             [['KETERANGAN'], 'string', 'max' => 2048],
-            [['ID_INFORMASI'], 'unique'],
             [['ID_RUMAHINDEKOS'], 'exist', 'skipOnError' => true, 'targetClass' => RumahIndekos::className(), 'targetAttribute' => ['ID_RUMAHINDEKOS' => 'ID_RUMAHINDEKOS']],
-            [['ID_VENDOR'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::className(), 'targetAttribute' => ['ID_VENDOR' => 'ID_VENDOR']],
         ];
     }
 
@@ -52,7 +47,6 @@ class Informasi extends \yii\db\ActiveRecord
         return [
             'ID_INFORMASI' => 'Id Informasi',
             'ID_RUMAHINDEKOS' => 'Id Rumahindekos',
-            'ID_VENDOR' => 'Id Vendor',
             'JENIS_FASILITAS' => 'Jenis Fasilitas',
             'STOK' => 'Stok',
             'KETERANGAN' => 'Keterangan',
@@ -65,13 +59,5 @@ class Informasi extends \yii\db\ActiveRecord
     public function getRUMAHINDEKOS()
     {
         return $this->hasOne(RumahIndekos::className(), ['ID_RUMAHINDEKOS' => 'ID_RUMAHINDEKOS']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVENDOR()
-    {
-        return $this->hasOne(Vendor::className(), ['ID_VENDOR' => 'ID_VENDOR']);
     }
 }

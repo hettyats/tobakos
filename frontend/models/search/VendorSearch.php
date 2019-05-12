@@ -17,8 +17,8 @@ class VendorSearch extends Vendor
     public function rules()
     {
         return [
-            [['ID_VENDOR', 'ID_AKUN', 'NAMA_VENDOR', 'ALAMAT_VENDOR', 'EMAIL_VENDOR'], 'safe'],
-            [['NO_TELEPON__VENDOR'], 'integer'],
+            [['ID_VENDOR', 'ID_AKUN', 'NO_TELEPON__VENDOR'], 'integer'],
+            [['NAMA_VENDOR', 'ALAMAT_VENDOR', 'EMAIL_VENDOR'], 'safe'],
         ];
     }
 
@@ -58,12 +58,12 @@ class VendorSearch extends Vendor
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'ID_VENDOR' => $this->ID_VENDOR,
+            'ID_AKUN' => $this->ID_AKUN,
             'NO_TELEPON__VENDOR' => $this->NO_TELEPON__VENDOR,
         ]);
 
-        $query->andFilterWhere(['like', 'ID_VENDOR', $this->ID_VENDOR])
-            ->andFilterWhere(['like', 'ID_AKUN', $this->ID_AKUN])
-            ->andFilterWhere(['like', 'NAMA_VENDOR', $this->NAMA_VENDOR])
+        $query->andFilterWhere(['like', 'NAMA_VENDOR', $this->NAMA_VENDOR])
             ->andFilterWhere(['like', 'ALAMAT_VENDOR', $this->ALAMAT_VENDOR])
             ->andFilterWhere(['like', 'EMAIL_VENDOR', $this->EMAIL_VENDOR]);
 

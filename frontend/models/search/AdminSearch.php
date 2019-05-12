@@ -17,8 +17,8 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['ID_ADMIN', 'NAMA_ADMIN', 'ALAMAT_ADMIN', 'EMAIL_ADMIN'], 'safe'],
-            [['NO_TELEPON_ADMIN'], 'integer'],
+            [['ID_ADMIN', 'ID_AKUN', 'NO_TELEPON_ADMIN'], 'integer'],
+            [['NAMA_ADMIN', 'ALAMAT_ADMIN', 'EMAIL_ADMIN'], 'safe'],
         ];
     }
 
@@ -58,11 +58,12 @@ class AdminSearch extends Admin
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'ID_ADMIN' => $this->ID_ADMIN,
+            'ID_AKUN' => $this->ID_AKUN,
             'NO_TELEPON_ADMIN' => $this->NO_TELEPON_ADMIN,
         ]);
 
-        $query->andFilterWhere(['like', 'ID_ADMIN', $this->ID_ADMIN])
-            ->andFilterWhere(['like', 'NAMA_ADMIN', $this->NAMA_ADMIN])
+        $query->andFilterWhere(['like', 'NAMA_ADMIN', $this->NAMA_ADMIN])
             ->andFilterWhere(['like', 'ALAMAT_ADMIN', $this->ALAMAT_ADMIN])
             ->andFilterWhere(['like', 'EMAIL_ADMIN', $this->EMAIL_ADMIN]);
 

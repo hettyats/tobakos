@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\RumahIndekos */
+/* @var $model frontend\models\Pemesanan */
 
-$this->title = $model->ID_RUMAHINDEKOS;
-$this->params['breadcrumbs'][] = ['label' => 'Rumah Indekos', 'url' => ['index']];
+$this->title = $model->id_pemesanan;
+$this->params['breadcrumbs'][] = ['label' => 'Pemesanans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="rumah-indekos-view">
+<div class="pemesanan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->ID_RUMAHINDEKOS], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->ID_RUMAHINDEKOS], [
+        <?= Html::a('Update', ['update', 'id' => $model->id_pemesanan], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id_pemesanan], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,11 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'ID_RUMAHINDEKOS',
-            'ID_VENDOR',
-            'NAMA_RUMAHINDEKOS',
-            'BIAYA',
-            'ALAMAT_RUMAHINDEKOS',
+            'id_pemesanan',
+            'id_rumahindekos',
+            'id_customer',
+            'tanggal',
+            'waktu',
+            'jumlah_kamar',
+            'status',
         ],
     ]) ?>
 

@@ -4,12 +4,12 @@ namespace frontend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Informasi;
+use frontend\models\Pemesanan;
 
 /**
- * InformasiSearch represents the model behind the search form of `frontend\models\Informasi`.
+ * PemesananSearch represents the model behind the search form of `frontend\models\Pemesanan`.
  */
-class InformasiSearch extends Informasi
+class PemesananSearch extends Pemesanan
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class InformasiSearch extends Informasi
     public function rules()
     {
         return [
-            [['ID_INFORMASI', 'ID_RUMAHINDEKOS', 'STOK'], 'integer'],
-            [['JENIS_FASILITAS', 'KETERANGAN'], 'safe'],
+            [['id_pemesanan', 'id_rumahindekos', 'id_customer', 'jumlah_kamar', 'status'], 'integer'],
+            [['tanggal', 'waktu'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class InformasiSearch extends Informasi
      */
     public function search($params)
     {
-        $query = Informasi::find();
+        $query = Pemesanan::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +58,14 @@ class InformasiSearch extends Informasi
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID_INFORMASI' => $this->ID_INFORMASI,
-            'ID_RUMAHINDEKOS' => $this->ID_RUMAHINDEKOS,
-            'STOK' => $this->STOK,
+            'id_pemesanan' => $this->id_pemesanan,
+            'id_rumahindekos' => $this->id_rumahindekos,
+            'id_customer' => $this->id_customer,
+            'tanggal' => $this->tanggal,
+            'waktu' => $this->waktu,
+            'jumlah_kamar' => $this->jumlah_kamar,
+            'status' => $this->status,
         ]);
-
-        $query->andFilterWhere(['like', 'JENIS_FASILITAS', $this->JENIS_FASILITAS])
-            ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN]);
 
         return $dataProvider;
     }

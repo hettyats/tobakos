@@ -19,13 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ID_RUMAHINDEKOS') ?>
 
-    <?= $form->field($model, 'ID_VENDOR') ?>
-
     <?= $form->field($model, 'JENIS_FASILITAS') ?>
 
     <?= $form->field($model, 'STOK') ?>
 
-    <?php // echo $form->field($model, 'KETERANGAN') ?>
+    <?= $form->field($model, 'KETERANGAN') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -17,7 +17,8 @@ class UlasanSearch extends Ulasan
     public function rules()
     {
         return [
-            [['ID_ULASAN', 'ID_CUSTOMER', 'ID_VENDOR', 'ID_RUMAHINDEKOS', 'KOMENTAR'], 'safe'],
+            [['ID_ULASAN', 'ID_CUSTOMER', 'ID_RUMAHINDEKOS'], 'integer'],
+            [['KOMENTAR'], 'safe'],
             [['RATING'], 'number'],
         ];
     }
@@ -58,14 +59,13 @@ class UlasanSearch extends Ulasan
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'ID_ULASAN' => $this->ID_ULASAN,
+            'ID_CUSTOMER' => $this->ID_CUSTOMER,
+            'ID_RUMAHINDEKOS' => $this->ID_RUMAHINDEKOS,
             'RATING' => $this->RATING,
         ]);
 
-        $query->andFilterWhere(['like', 'ID_ULASAN', $this->ID_ULASAN])
-            ->andFilterWhere(['like', 'ID_CUSTOMER', $this->ID_CUSTOMER])
-            ->andFilterWhere(['like', 'ID_VENDOR', $this->ID_VENDOR])
-            ->andFilterWhere(['like', 'ID_RUMAHINDEKOS', $this->ID_RUMAHINDEKOS])
-            ->andFilterWhere(['like', 'KOMENTAR', $this->KOMENTAR]);
+        $query->andFilterWhere(['like', 'KOMENTAR', $this->KOMENTAR]);
 
         return $dataProvider;
     }

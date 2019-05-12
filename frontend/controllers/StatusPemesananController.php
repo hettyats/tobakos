@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Informasi;
-use frontend\models\search\InformasiSearch;
+use frontend\models\StatusPemesanan;
+use frontend\models\search\StatusPemesananSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InformasiController implements the CRUD actions for Informasi model.
+ * StatusPemesananController implements the CRUD actions for StatusPemesanan model.
  */
-class InformasiController extends Controller
+class StatusPemesananController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class InformasiController extends Controller
     }
 
     /**
-     * Lists all Informasi models.
+     * Lists all StatusPemesanan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new InformasiSearch();
+        $searchModel = new StatusPemesananSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Displays a single Informasi model.
+     * Displays a single StatusPemesanan model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class InformasiController extends Controller
     }
 
     /**
-     * Creates a new Informasi model.
+     * Creates a new StatusPemesanan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Informasi();
+        $model = new StatusPemesanan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_INFORMASI]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Updates an existing Informasi model.
+     * Updates an existing StatusPemesanan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class InformasiController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_INFORMASI]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Deletes an existing Informasi model.
+     * Deletes an existing StatusPemesanan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class InformasiController extends Controller
     }
 
     /**
-     * Finds the Informasi model based on its primary key value.
+     * Finds the StatusPemesanan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Informasi the loaded model
+     * @return StatusPemesanan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Informasi::findOne($id)) !== null) {
+        if (($model = StatusPemesanan::findOne($id)) !== null) {
             return $model;
         }
 

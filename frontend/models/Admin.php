@@ -7,13 +7,14 @@ use Yii;
 /**
  * This is the model class for table "admin".
  *
- * @property string $ID_ADMIN
+ * @property int $ID_ADMIN
+ * @property int $ID_AKUN
  * @property string $NAMA_ADMIN
  * @property string $ALAMAT_ADMIN
  * @property string $EMAIL_ADMIN
  * @property int $NO_TELEPON_ADMIN
  *
- * @property Akun[] $akuns
+ * @property User $aKUN
  */
 class Admin extends \yii\db\ActiveRecord
 {
@@ -31,12 +32,11 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_ADMIN'], 'required'],
-            [['NO_TELEPON_ADMIN'], 'integer'],
-            [['ID_ADMIN'], 'string', 'max' => 16],
+            [['ID_AKUN'], 'required'],
+            [['ID_AKUN', 'NO_TELEPON_ADMIN'], 'integer'],
             [['NAMA_ADMIN', 'EMAIL_ADMIN'], 'string', 'max' => 32],
             [['ALAMAT_ADMIN'], 'string', 'max' => 64],
-            [['ID_ADMIN'], 'unique'],
+            [['ID_AKUN'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ID_AKUN' => 'id']],
         ];
     }
 
@@ -47,6 +47,7 @@ class Admin extends \yii\db\ActiveRecord
     {
         return [
             'ID_ADMIN' => 'Id Admin',
+            'ID_AKUN' => 'Id Akun',
             'NAMA_ADMIN' => 'Nama Admin',
             'ALAMAT_ADMIN' => 'Alamat Admin',
             'EMAIL_ADMIN' => 'Email Admin',
@@ -57,8 +58,8 @@ class Admin extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAkuns()
+    public function getAKUN()
     {
-        return $this->hasMany(Akun::className(), ['ID_ADMIN' => 'ID_ADMIN']);
+        return $this->hasOne(User::className(), ['id' => 'ID_AKUN']);
     }
 }

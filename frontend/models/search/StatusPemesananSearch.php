@@ -4,12 +4,12 @@ namespace frontend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Informasi;
+use frontend\models\StatusPemesanan;
 
 /**
- * InformasiSearch represents the model behind the search form of `frontend\models\Informasi`.
+ * StatusPemesananSearch represents the model behind the search form of `frontend\models\StatusPemesanan`.
  */
-class InformasiSearch extends Informasi
+class StatusPemesananSearch extends StatusPemesanan
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class InformasiSearch extends Informasi
     public function rules()
     {
         return [
-            [['ID_INFORMASI', 'ID_RUMAHINDEKOS', 'STOK'], 'integer'],
-            [['JENIS_FASILITAS', 'KETERANGAN'], 'safe'],
+            [['id'], 'integer'],
+            [['status'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class InformasiSearch extends Informasi
      */
     public function search($params)
     {
-        $query = Informasi::find();
+        $query = StatusPemesanan::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +58,10 @@ class InformasiSearch extends Informasi
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID_INFORMASI' => $this->ID_INFORMASI,
-            'ID_RUMAHINDEKOS' => $this->ID_RUMAHINDEKOS,
-            'STOK' => $this->STOK,
+            'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'JENIS_FASILITAS', $this->JENIS_FASILITAS])
-            ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN]);
+        $query->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

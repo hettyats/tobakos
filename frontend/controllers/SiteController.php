@@ -14,6 +14,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Customer;
+use frontend\models\User;
+use frontend\models\Vendor;
 
 /**
  * Site controller
@@ -153,15 +156,69 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+        $modelRegister = new Customer();
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->signup();
+
+            $id = User::find()->max('id');
+
+            $data = Yii::$app->request->post()['Customer'];
+
+            $modelRegister->ID_AKUN = $id;
+            $modelRegister->NAMA_CUSTOMER = $data['NAMA_CUSTOMER'];
+            $modelRegister->ALAMAT_CUSTOMER = $data['ALAMAT_CUSTOMER'];
+            $modelRegister->NO_TELEPON_CUSTOMER = $data['NO_TELEPON_CUSTOMER'];
+            $modelRegister->JENIS_KELAMIN = $data['JENIS_KELAMIN'];
+            $modelRegister->EMAIL_CUSTOMER = $model->email;
+
+            // echo "<pre />";
+            // print_r($modelRegister);
+            // die;
+
+            $modelRegister->save();            
+
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            \Yii::$app->user->login($model);
-            return $this->redirect(['/site/index']);
-            // return $this->goHome();
+            return $this->goHome();
         }
 
         return $this->render('signup', [
             'model' => $model,
+            'modelRegister' => $modelRegister,
+        ]);
+    }
+
+    public function actionSignupVendor()
+    {
+        $model = new SignupForm();
+        $modelRegisterVendor = new Vendor();
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->signup();
+
+            $id = User::find()->max('id');
+
+            $data = Yii::$app->request->post()['Vendor'];
+
+            $modelRegisterVendor->ID_AKUN = $id;
+            $modelRegisterVendor->NAMA_VENDOR = $data['NAMA_VENDOR'];
+            $modelRegisterVendor->ALAMAT_VENDOR = $data['ALAMAT_VENDOR'];
+            $modelRegisterVendor->NO_TELEPON__VENDOR = $data['NO_TELEPON__VENDOR'];
+            $modelRegisterVendor->EMAIL_VENDOR = $model->email;
+
+            // echo "<pre />";
+            // print_r($modelRegisterVendor);
+            // die;
+
+            $modelRegisterVendor->save();            
+
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
+        }
+
+        return $this->render('signupVendor', [
+            'model' => $model,
+            'modelRegisterVendor' => $modelRegisterVendor,
         ]);
     }
 

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use frontend\models\RumahIndekos;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Informasi */
@@ -12,11 +14,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ID_INFORMASI')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ID_RUMAHINDEKOS')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ID_VENDOR')->textInput(['maxlength' => true]) ?>
+    <?=$form->field($model, 'ID_RUMAHINDEKOS')->label('Nama Kost')->dropDownList(
+    	ArrayHelper::map(RumahIndekos::find()->all(), 'ID_RUMAHINDEKOS', 'NAMA_RUMAHINDEKOS'),
+    	['prompt' => 'Pilih Kost']
+		)
+	?>
 
     <?= $form->field($model, 'JENIS_FASILITAS')->textInput(['maxlength' => true]) ?>
 

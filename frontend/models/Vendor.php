@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "vendor".
  *
- * @property string $ID_VENDOR
- * @property string $ID_AKUN
+ * @property int $ID_VENDOR
+ * @property int $ID_AKUN
  * @property string $NAMA_VENDOR
  * @property string $ALAMAT_VENDOR
  * @property string $EMAIL_VENDOR
@@ -17,7 +17,7 @@ use Yii;
  * @property Informasi[] $informasis
  * @property RumahIndekos[] $rumahIndekos
  * @property Ulasan[] $ulasans
- * @property Akun $aKUN
+ * @property User $aKUN
  */
 class Vendor extends \yii\db\ActiveRecord
 {
@@ -35,13 +35,11 @@ class Vendor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_VENDOR', 'ID_AKUN'], 'required'],
-            [['NO_TELEPON__VENDOR'], 'integer'],
-            [['ID_VENDOR', 'ID_AKUN'], 'string', 'max' => 16],
+            [['ID_AKUN'], 'required'],
+            [['ID_AKUN', 'NO_TELEPON__VENDOR'], 'integer'],
             [['NAMA_VENDOR', 'EMAIL_VENDOR'], 'string', 'max' => 32],
             [['ALAMAT_VENDOR'], 'string', 'max' => 64],
-            [['ID_VENDOR'], 'unique'],
-            [['ID_AKUN'], 'exist', 'skipOnError' => true, 'targetClass' => Akun::className(), 'targetAttribute' => ['ID_AKUN' => 'ID_AKUN']],
+            [['ID_AKUN'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ID_AKUN' => 'id']],
         ];
     }
 
@@ -89,6 +87,6 @@ class Vendor extends \yii\db\ActiveRecord
      */
     public function getAKUN()
     {
-        return $this->hasOne(Akun::className(), ['ID_AKUN' => 'ID_AKUN']);
+        return $this->hasOne(User::className(), ['id' => 'ID_AKUN']);
     }
 }

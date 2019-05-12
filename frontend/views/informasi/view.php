@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'ID_INFORMASI',
             'ID_RUMAHINDEKOS',
-            'ID_VENDOR',
             'JENIS_FASILITAS',
             'STOK',
             'KETERANGAN',

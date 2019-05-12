@@ -13,10 +13,6 @@ use Yii;
  * @property string $PERTANYAAN_KEAMANAN
  * @property string $NAMA_AKUN
  * @property string $KATA_SANDI
- *
- * @property Admin $aDMIN
- * @property Customer $cUSTOMER
- * @property Vendor[] $vendors
  */
 class Akun extends \yii\db\ActiveRecord
 {
@@ -39,8 +35,6 @@ class Akun extends \yii\db\ActiveRecord
             [['PERTANYAAN_KEAMANAN'], 'string', 'max' => 256],
             [['NAMA_AKUN'], 'string', 'max' => 32],
             [['ID_AKUN'], 'unique'],
-            [['ID_ADMIN'], 'exist', 'skipOnError' => true, 'targetClass' => Admin::className(), 'targetAttribute' => ['ID_ADMIN' => 'ID_ADMIN']],
-            [['ID_CUSTOMER'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['ID_CUSTOMER' => 'ID_CUSTOMER']],
         ];
     }
 
@@ -57,29 +51,5 @@ class Akun extends \yii\db\ActiveRecord
             'NAMA_AKUN' => 'Nama Akun',
             'KATA_SANDI' => 'Kata Sandi',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getADMIN()
-    {
-        return $this->hasOne(Admin::className(), ['ID_ADMIN' => 'ID_ADMIN']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCUSTOMER()
-    {
-        return $this->hasOne(Customer::className(), ['ID_CUSTOMER' => 'ID_CUSTOMER']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVendors()
-    {
-        return $this->hasMany(Vendor::className(), ['ID_AKUN' => 'ID_AKUN']);
     }
 }

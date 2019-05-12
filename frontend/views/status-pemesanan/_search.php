@@ -4,26 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\search\RumahIndekosSearch */
+/* @var $model frontend\models\search\StatusPemesananSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="rumah-indekos-search">
+<div class="status-pemesanan-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'ID_RUMAHINDEKOS') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'ID_VENDOR') ?>
-
-    <?= $form->field($model, 'NAMA_RUMAHINDEKOS') ?>
-
-    <?= $form->field($model, 'BIAYA') ?>
-
-    <?= $form->field($model, 'ALAMAT_RUMAHINDEKOS') ?>
+    <?= $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

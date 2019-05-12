@@ -37,13 +37,16 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Informasi Kost', 'url' => ['/informasi/index']],
+        ['label' => 'Pesan Kost', 'url' => ['/rumah-indekos/index']],
+        ['label' => 'Testimoni Kost', 'url' => ['/ulasan/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Signup(Customer)', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Signup(Vendor)', 'url' => ['/site/signup-vendor']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Daftar Pesanan', 'url' => ['/pemesanan/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

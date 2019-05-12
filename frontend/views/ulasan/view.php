@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'ID_ULASAN',
             'ID_CUSTOMER',
-            'ID_VENDOR',
             'ID_RUMAHINDEKOS',
             'KOMENTAR',
             'RATING',

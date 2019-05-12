@@ -27,11 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'ID_ULASAN',
-            'ID_CUSTOMER',
-            'ID_VENDOR',
-            'ID_RUMAHINDEKOS',
+            [
+                'label' => 'Customer',
+                'attribute' => 'ID_CUSTOMER',
+                'value' => 'customer.NAMA_CUSTOMER',
+            ],
+            [
+                'label' => 'Nama Kost',
+                'attribute' => 'ID_RUMAHINDEKOS',
+                'value' => 'rumahindekos.NAMA_RUMAHINDEKOS',
+            ],
             'KOMENTAR',
-            //'RATING',
+            'RATING',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Informasi;
-use frontend\models\search\InformasiSearch;
+use frontend\models\Pemesanan;
+use frontend\models\search\PemesananSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InformasiController implements the CRUD actions for Informasi model.
+ * PemesananController implements the CRUD actions for Pemesanan model.
  */
-class InformasiController extends Controller
+class PemesananController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class InformasiController extends Controller
     }
 
     /**
-     * Lists all Informasi models.
+     * Lists all Pemesanan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new InformasiSearch();
+        $searchModel = new PemesananSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Displays a single Informasi model.
+     * Displays a single Pemesanan model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,35 @@ class InformasiController extends Controller
     }
 
     /**
-     * Creates a new Informasi model.
+     * Creates a new Pemesanan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Informasi();
+        $model = new Pemesanan();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_INFORMASI]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $userId = Yii::$app->user->getId();
+
+            $id = (new \yii\db\Query())
+                  ->select(['ID_CUSTOMER'])
+                  ->from('CUSTOMER')
+                  ->where(['ID_AKUN' => $userId])
+                  ->all();
+
+            $model->id_customer = $id;
+            $model->tanggal = date('Y-m-d');
+            $model->waktu = date('H:i:s');
+            $model->status = 1;
+
+            // echo '<pre />';
+            // print_r($model);
+            // die;
+
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id_pemesanan]);
         }
 
         return $this->render('create', [
@@ -76,7 +95,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Updates an existing Informasi model.
+     * Updates an existing Pemesanan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +106,7 @@ class InformasiController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_INFORMASI]);
+            return $this->redirect(['view', 'id' => $model->id_pemesanan]);
         }
 
         return $this->render('update', [
@@ -96,7 +115,7 @@ class InformasiController extends Controller
     }
 
     /**
-     * Deletes an existing Informasi model.
+     * Deletes an existing Pemesanan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +129,15 @@ class InformasiController extends Controller
     }
 
     /**
-     * Finds the Informasi model based on its primary key value.
+     * Finds the Pemesanan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Informasi the loaded model
+     * @return Pemesanan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Informasi::findOne($id)) !== null) {
+        if (($model = Pemesanan::findOne($id)) !== null) {
             return $model;
         }
 

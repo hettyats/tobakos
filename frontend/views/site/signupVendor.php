@@ -6,8 +6,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\ArrayHelper;
-use frontend\models\JenisKelamin;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,17 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($modelRegister, 'NAMA_CUSTOMER') ?>
+                <?= $form->field($modelRegisterVendor, 'NAMA_VENDOR') ?>
 
-                <?= $form->field($modelRegister, 'ALAMAT_CUSTOMER') ?>
+                <?= $form->field($modelRegisterVendor, 'ALAMAT_VENDOR') ?>
 
-                <?= $form->field($modelRegister, 'NO_TELEPON_CUSTOMER') ?>
-
-                <?= $form->field($modelRegister, 'JENIS_KELAMIN')->label('Jenis Kelamin')->dropDownList(
-                    ArrayHelper::map(JenisKelamin::find()->all(),'id','jenisKelamin'),
-                    ['prompt'=>'Pilih Jenis Kelamin']
-                    )
-                ?>
+                <?= $form->field($modelRegisterVendor, 'NO_TELEPON__VENDOR') ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
