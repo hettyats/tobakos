@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $status
+ *
+ * @property Pemesanan[] $pemesanans
  */
 class StatusPemesanan extends \yii\db\ActiveRecord
 {
@@ -40,5 +42,13 @@ class StatusPemesanan extends \yii\db\ActiveRecord
             'id' => 'ID',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPemesanans()
+    {
+        return $this->hasMany(Pemesanan::className(), ['status' => 'id']);
     }
 }

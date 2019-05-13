@@ -17,8 +17,7 @@ use Yii;
  *
  * @property RumahIndekos $rumahindekos
  * @property Customer $customer
- * @property Pemesanan $status0
- * @property Pemesanan[] $pemesanans
+ * @property StatusPemesanan $status0
  */
 class Pemesanan extends \yii\db\ActiveRecord
 {
@@ -41,7 +40,7 @@ class Pemesanan extends \yii\db\ActiveRecord
             [['tanggal', 'waktu'], 'safe'],
             [['id_rumahindekos'], 'exist', 'skipOnError' => true, 'targetClass' => RumahIndekos::className(), 'targetAttribute' => ['id_rumahindekos' => 'ID_RUMAHINDEKOS']],
             [['id_customer'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['id_customer' => 'ID_CUSTOMER']],
-            [['status'], 'exist', 'skipOnError' => true, 'targetClass' => Pemesanan::className(), 'targetAttribute' => ['status' => 'id_pemesanan']],
+            [['status'], 'exist', 'skipOnError' => true, 'targetClass' => StatusPemesanan::className(), 'targetAttribute' => ['status' => 'id']],
         ];
     }
 
@@ -82,14 +81,6 @@ class Pemesanan extends \yii\db\ActiveRecord
      */
     public function getStatus0()
     {
-        return $this->hasOne(Pemesanan::className(), ['id_pemesanan' => 'status']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPemesanans()
-    {
-        return $this->hasMany(Pemesanan::className(), ['status' => 'id_pemesanan']);
+        return $this->hasOne(StatusPemesanan::className(), ['id' => 'status']);
     }
 }
