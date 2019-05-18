@@ -66,7 +66,19 @@ class InformasiController extends Controller
     {
         $model = new Informasi();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            // echo '<pre />';
+            // print_r($model);
+            // die;
+
+            $model->JENIS_FASILITAS = implode(',', $model->JENIS_FASILITAS);            
+
+            // echo '<pre />';
+            // print_r($model);
+            // die;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->ID_INFORMASI]);
         }
 

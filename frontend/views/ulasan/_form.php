@@ -24,7 +24,7 @@ use frontend\models\RumahIndekos;
 
     <?= $form->field($model, 'KOMENTAR')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'RATING')->textInput() ?>
+    <?= $form->field($model, 'RATING')->radioList(array(1=>'1',2=>'2',3=>'3',4=>'4',5=>'5')); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -33,7 +33,7 @@ class Informasi extends \yii\db\ActiveRecord
         return [
             [['ID_RUMAHINDEKOS'], 'required'],
             [['ID_RUMAHINDEKOS', 'STOK'], 'integer'],
-            [['JENIS_FASILITAS'], 'string', 'max' => 32],
+            [['JENIS_FASILITAS'], 'string', 'max' => 2048],
             [['KETERANGAN'], 'string', 'max' => 2048],
             [['ID_RUMAHINDEKOS'], 'exist', 'skipOnError' => true, 'targetClass' => RumahIndekos::className(), 'targetAttribute' => ['ID_RUMAHINDEKOS' => 'ID_RUMAHINDEKOS']],
         ];

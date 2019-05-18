@@ -20,7 +20,12 @@ use frontend\models\RumahIndekos;
 		)
 	?>
 
-    <?= $form->field($model, 'JENIS_FASILITAS')->textInput(['maxlength' => true]) ?>
+	<?php echo $form->field($model, 'JENIS_FASILITAS[]')->checkboxList(
+			['Bed' => 'Bed', 'Lemari' => 'Lemari', 'Kipas Angin' => 'Kipas Angin', 'AC' => 'AC', 'Kamar Mandi Dalam' => 'Kamar Mandi Dalam', 'Sofa' => 'Sofa', 'Dapur' => 'Dapur', 'Meja Belajar' => 'Meja Belajar', 'Dispenser' => 'Dispenser', 'Wi-Fi' => 'Wi-Fi', 'Kompor' => 'Kompor', 'Westafel' => 'Westafel',]
+   	);
+	?>
+
+    <!-- <?= $form->field($model, 'JENIS_FASILITAS')->textInput(['maxlength' => true]) ?> -->
 
     <?= $form->field($model, 'STOK')->textInput() ?>
 

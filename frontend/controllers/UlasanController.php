@@ -76,9 +76,18 @@ class UlasanController extends Controller
                   ->where(['ID_AKUN' => $userId])
                   ->all();
 
-            $model->ID_CUSTOMER = $id;
 
-            $model->save(false);
+            // echo '<pre />';
+            // print_r($id);
+            // die;
+
+            $model->ID_CUSTOMER = $id[0]['ID_CUSTOMER'];
+
+            // echo '<pre />';
+            // print_r($model);
+            // die;
+
+            $model->save();
 
             return $this->redirect(['view', 'id' => $model->ID_ULASAN]);
         }
